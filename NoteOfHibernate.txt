@@ -1,0 +1,9 @@
+-------------------------------------
+refesh EntityManager : 
+
+void flushAndClear() {
+	    entityManager.flush();
+	    entityManager.clear();
+	}
+
+--------------------------------------
