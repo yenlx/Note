@@ -1,0 +1,2 @@
+----------------------------------------
+vi tri dat cac file .css , .js phai nam trong folder static de spring or thymeleaf co the nhan dc duong dan
