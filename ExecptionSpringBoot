@@ -1,0 +1,29 @@
+2 cach
+---  cach 1 : BindingResult
+ - private Map<String,Object> getFieldErrorResponse(BindingResult result){
+		Map<String,Object> fieldError = new HashMap<String,Object>();
+		List<FieldError> errors = result.getFieldErrors();
+		errors.stream().forEach(p -> fieldError.put(p.get, p.getDefaultMessage()));
+		return fieldError;
+	}
+	final public ResponseEntity<Object> fieldErrorResponse(Object fieldError){
+		Map<String,Object> response = new HashMap<>();
+		response.put(name,fieldError);
+		return new ResponseEntity<Object>(response ,HttpStatus.BAD_REQUEST);
+	}
+---- cach 2 : bat tat ca cac request cung loi (400 : bad request)
+
+  - @ControllerAdvice
+    public class ErrorController extends ResponseEntityExceptionHandler {
+
+        @Override
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                HttpHeaders headers, HttpStatus status, WebRequest request) {
+            final List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+            Map<String, String> errorsMaps =new HashMap<String, String>();
+            fieldErrors.stream().forEach(p->errorsMaps.put(p.getField(), p.getDefaultMessage()));
+            return new ResponseEntity<Object>(errorsMaps.isEmpty() ? ex : errorsMaps, headers, status);
+        }
+    }
+-----------------------------------------------------
