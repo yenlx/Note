@@ -1,0 +1,5 @@
+-----
+ trực tiếp convert từ name json về tên java 
+        (display_name -> displayName) và ngược lại
+Jackson : @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+-------------------------------------------------------
